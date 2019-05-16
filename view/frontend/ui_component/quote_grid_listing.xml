@@ -95,6 +95,7 @@
                 <item name="config" xsi:type="array">
                     <item name="sortable" xsi:type="boolean">true</item>
                     <item name="label" xsi:type="string" translate="true">Confirmation User Email</item>
+                    <item name="sortOrder" xsi:type="number">3</item>
                 </item>
             </argument>
         </column>
