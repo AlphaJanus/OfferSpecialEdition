@@ -23,16 +23,20 @@
 }
 
 .abs-action-pattern {
-    border: @button__border-size @button__border-style;
-    border-radius: 0; // ToDo UI: Delete with admin scope
+    background-image: none;
+    background: #eee;
+    border: @button__border-size @button__border-style solid;
+    color: #333;
+    cursor: pointer;
+    margin: 0;
+    box-sizing: border-box;
+    vertical-align: middle;
     display: inline-block;
     font-family: @button__font-family;
-    font-size: @button__font-size;
+    font-size: 1.4rem;
     font-weight: @font-weight__semibold;
-    line-height: @button__line-height;
-    padding: @button__padding-top @button__padding-horizontal @button__padding-bottom;
-    text-align: center;
-    vertical-align: baseline;
+    line-height: 1.6rem;
+    padding: 7px 15px;
 
     &[disabled],
     &.disabled {
