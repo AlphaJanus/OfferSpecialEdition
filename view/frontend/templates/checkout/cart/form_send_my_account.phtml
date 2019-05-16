@@ -1,0 +1,95 @@
+<?php
+/** @var $block \Netzexpert\OfferSpecialEdition\Block\Checkout\Cart\FormSendMyAccount */
+?>
+<form id="send-quote-form" class="form_cart" method="post">
+    <input type="hidden" name="offer_id" value="<?= $block->getOfferId(); ?>" />
+    <input name="email" placeholder="Enter email address" title="<?php /* @escapeNotVerified */ echo __('Email') ?>"
+           value="<?php echo $block->escapeHtml($block->getStoreEmail()) ?>"
+           class="input-email" type="email" data-validate="{required:true, 'validate-email':true, equalTo:'#email'}"/>
+    <input name="name" placeholder="Enter name and surname" title="<?php /* @escapeNotVerified */ echo __('Name') ?>"
+           value="<?php echo $block->escapeHtml($this->helper('Magento\Contact\Helper\Data')->getPostValue('name') ?: $this->helper('Magento\Contact\Helper\Data')->getUserName()) ?>"
+           class="input-name" type="text" data-validate="{required:true}"/>
+    <textarea name="comment" placeholder="Leave your comment here" title="<?php /* @escapeNotVerified */ echo __('Comment') ?>"
+              class="comment" type="text" data-validate="{required:true}"></textarea>
+    <?php if ($block->checkButtonsCustomer() == true):?>
+        <select name="template" class="form_template" type="text">
+            <?php
+            foreach ($block->getAvailableTemplates() as $template) {
+                ?>
+                <option value="<?= $block->escapeHtml($template['value']) ?>"><?= $block->escapeHtml($template['label']) ?></option>
+                <?php
+            }
+            ?>
+        </select>
+        <button id="confirm" type="submit" title="<?= /* @escapeNotVerified */ __('Confirm') ?>" class="button_confirm">
+        <span><?= /* @escapeNotVerified */ __('Confirm') ?></span>
+        </button>
+        <button id="decline" type="submit" title="<?= /* @escapeNotVerified */ __('Decline') ?>" class="button_decline">
+        <span><?= /* @escapeNotVerified */ __('Decline') ?></span>
+        </button>
+    <?php elseif ($block->checkButtonsCustomer() == false):?>
+    <script>
+        require(['jquery'],function() {
+            jQuery(".button_confirm, .button_decline").hide();
+        }
+    </script>
+    <?php endif; ?>
+    <button id="send-quote" type="submit" title="<?= /* @escapeNotVerified */ __('Send Cart') ?>" class="action_button">
+        <span><?= /* @escapeNotVerified */ __('Send Cart') ?></span>
+    </button>
+</form>
+
+
+<script>
+    require(['jquery'],function() {
+        jQuery(document).ready(function () {
+            var form = jQuery("#send-quote-form");
+            jQuery("#send-quote").click(function () {
+                var data = form.serialize();
+                jQuery.ajax({
+                    url: '<?= $block->getFormUrl() ?>',
+                    type: "POST",
+                    data: data,
+                    showLoader: true,
+                    context: jQuery('body'),
+                    cache: false,
+                    success: function(response){
+                    }
+                });
+                return false;
+            });
+
+            jQuery("#confirm").click(function () {
+                var data = form.serialize();
+                jQuery.ajax({
+                    url: '<?= $block->getButtonConfirmUrl() ?>',
+                    type: "POST",
+                    data: data,
+                    showLoader: true,
+                    context: jQuery('body'),
+                    cache: false,
+                    success: function(){
+                        location.reload();
+                    }
+                });
+                return false;
+            });
+
+            jQuery("#decline").click(function () {
+                var data = form.serialize();
+                jQuery.ajax({
+                    url: '<?= $block->getButtonDeclineUrl() ?>',
+                    type: "POST",
+                    data: data,
+                    showLoader: true,
+                    context: jQuery('body'),
+                    cache: false,
+                    success: function(){
+                         location.reload();
+                    }
+                });
+                return false;
+            });
+        });
+    });
+</script>

@@ -1,0 +1,131 @@
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+  .offer-offer-view {
+    .cart-container {
+      #form-validate {
+        width: 100%;
+        &:extend(.abs-shopping-cart-items-desktop all);
+        margin-bottom: @indent__base;
+
+        .gift-options,
+        .gift-summary {
+          padding-bottom: @indent__base;
+        }
+      }
+    }
+  }
+}
+
+& when (@media-common = true) {
+  .offer-offer-view {
+    .columns {
+      #send-quote-form {
+        width: 73%;
+        &.form_cart {
+          width: 100%;
+        }
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 3%;
+        flex-flow: row wrap;
+        .input-email {
+          width: 44%;
+          order: 1;
+        }
+        .input-name {
+          width: 40%;
+          order: 2;
+          margin-left: 19px;
+        }
+        .comment {
+          flex: 1 100%;
+          order: 4;
+          margin-top: 10px;
+        }
+        .button_confirm {
+          order: 5;
+          margin-left: 0;
+          margin-top: 6px;
+          margin-right: 20px;
+        }
+        .button_decline {
+          order: 6;
+          margin-top: 6px;
+        }
+        .action_button {
+          order: 3;
+          width: 13%;
+          margin-left: 1%;
+          white-space: nowrap;
+        }
+        .form_template, .form_template_request {
+          margin-bottom: 10px;
+        }
+        .information-text {
+          margin-top: 20px;
+        }
+      }
+    }
+  }
+}
+
+& when (@media-common = true) {
+  .checkout-cart-index {
+    .cart-container {
+      #send-quote-form-general {
+        width: 73%;
+        &.form_cart {
+          width: 100%;
+        }
+        display: flex;
+        margin-bottom: 3%;
+        flex-flow: row wrap;
+        .input-email {
+          width: 44%;
+          order: 1;
+        }
+        .input-name {
+          width: 40%;
+          order: 2;
+          margin-left: 19px;
+        }
+        .comment {
+          flex: 1 100%;
+          order: 4;
+          margin-top: 10px;
+        }
+        .button_confirm {
+          order: 5;
+          margin-left: 0;
+          margin-top: 6px;
+          margin-right: 20px;
+        }
+        .button_decline {
+          order: 6;
+          margin-top: 6px;
+        }
+        .action_button {
+          order: 3;
+          margin-left: 3%;
+          white-space: nowrap;
+        }
+        .form_template, .form_template_request {
+          margin-bottom: 10px;
+        }
+        .information-text {
+          order: 7;
+          margin-top: 20px;
+        }
+      }
+    }
+  }
+}
+
+@baseDir: '../../../../';
+@import '../backend/source/lib/_lib.less'; // Global lib
+@import '../backend/source/_sources.less';
+@import '../backend/source/_utilities.less';
+@import '../backend/mui/clearless/_all.less';
+@import '../backend/mui/styles/_vars.less';
+@import '../backend/mui/styles/_abstract.less';
+@import '../backend/mui/styles/_table.less';
+@import '../backend/_module.less';

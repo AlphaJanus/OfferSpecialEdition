@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" label="Email Quote Items List" design_abstraction="custom">
+    <update handle="checkout_cart_item_renderers"/>
+    <update handle="checkout_item_price_renderers"/>
+    <body>
+        <block class="Magento\Checkout\Block\Cart\Grid" name="checkout.cart.account" as="cart-items" template="Netzexpert_OfferSpecialEdition::checkout/cart/quote.phtml">
+            <block class="Netzexpert\OfferSpecialEdition\Block\Quote\Totals" name="quote_totals" template="Netzexpert_OfferSpecialEdition::order/totals.phtml">
+                <arguments>
+                    <argument name="label_properties" xsi:type="string">colspan="3"</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Framework\View\Element\RendererList" name="checkout.cart.item.renderers" as="renderer.list"/>
+        </block>
+        <referenceBlock name="checkout.cart.item.renderers.default">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Netzexpert_OfferSpecialEdition::checkout/cart/item/default.phtml</argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="checkout.cart.item.renderers.simple">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Netzexpert_OfferSpecialEdition::checkout/cart/item/default.phtml</argument>
+            </action>
+        </referenceBlock>
+    </body>
+</page>

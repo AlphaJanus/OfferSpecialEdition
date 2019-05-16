@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="quote_grid_listing_data_source" xsi:type="string">Netzexpert\OfferSpecialEdition\Model\ResourceModel\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <preference for="Netzexpert\OfferSpecialEdition\Api\Data\OfferInterface" type="Netzexpert\OfferSpecialEdition\Model\Offer" />
+    <preference for="Netzexpert\OfferSpecialEdition\Api\Data\OfferItemInterface" type="Netzexpert\OfferSpecialEdition\Model\OfferItem" />
+    <type name="\Magento\Checkout\Controller\Cart\Configure">
+        <plugin name="check_request_param"
+                type="\Netzexpert\OfferSpecialEdition\Plugin\Cart\ConfigurePlugin"
+                sortOrder="1" />
+    </type>
+</config>

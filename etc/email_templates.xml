@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="offer_email_template1" label="Email Cart Template" file="loggeduser1.html" type="html" module="Netzexpert_OfferSpecialEdition" area="frontend"/>
+    <template id="offer_email_template2" label="Email Cart Template2" file="loggeduser2.html" type="html" module="Netzexpert_OfferSpecialEdition" area="frontend"/>
+    <template id="user_confirmation_email" label="Email Request" file="userConfirmationEmail.html" type="html" module="Netzexpert_OfferSpecialEdition" area="frontend"/>
+    <template id="user_decline_email" label="Email Request" file="userDeclineEmail.html" type="html" module="Netzexpert_OfferSpecialEdition" area="frontend"/>
+</config>

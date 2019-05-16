@@ -1,0 +1,23 @@
+<!--@subject {{trans "Information & Angebotsanfrage" store_name=$store.getFrontendName()}} @-->
+{{template config_path="design/email/header_template"}}
+<table class="greetings">
+    <tr>
+        <th>
+            Greetings {{var name}}!
+        </th>
+    </tr>
+</table>
+<table class="table">
+    <tr>
+        <th>
+            Your cart have been approved.
+            <br>Please, follow this link to proceed to checkout.</br>
+        </th>
+    </tr>
+    <tr>
+        <td>
+            {{var link}}
+        </td>
+    </tr>
+</table>
+{{template config_path="design/email/footer_template"}}

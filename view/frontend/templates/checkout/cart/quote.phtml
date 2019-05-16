@@ -1,0 +1,20 @@
+<table id="shopping-cart-table"
+       class="email-items"
+       data-mage-init='{"shoppingCart":{"emptyCartButton": "action.clear",
+               "updateCartActionContainer": "#update_cart_action_container"}}'>
+    <caption role="heading" aria-level="2"></caption>
+    <thead>
+    <tr>
+        <th class="col item" scope="col"><span><?= /* @escapeNotVerified */ __('Item') ?></span></th>
+        <th class="col price" scope="col"><span><?= /* @escapeNotVerified */ __('Price') ?></span></th>
+        <th class="col qty" scope="col"><span><?= /* @escapeNotVerified */ __('Qty') ?></span></th>
+        <th class="col subtotal" scope="col"><span><?= /* @escapeNotVerified */ __('Subtotal') ?></span></th>
+    </tr>
+    </thead>
+    <?php foreach ($block->getItems() as $_item): ?>
+        <?= $block->getItemHtml($_item) ?>
+    <?php endforeach ?>
+    <tfoot class="order-totals">
+    <?= $block->getChildHtml('quote_totals') ?>
+    </tfoot>
+</table>

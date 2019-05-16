@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+ * Netzexpert Offer Product Extension
+ */
+ -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="checkout.cart.container">
+            <block class="Netzexpert\OfferSpecialEdition\Block\Checkout\Cart\Form" name="offer.form" template="Netzexpert_OfferSpecialEdition::checkout/cart/form.phtml" after="cart.discount"/>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <referenceBlock name="checkout.cart.methods.onepage.bottom" template="Netzexpert_OfferSpecialEdition::checkout/cart/button.phtml" />
+        </referenceContainer>
+    </body>
+</page>

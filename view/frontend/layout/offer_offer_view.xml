@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>My Saved Carts</title>
+    </head>
+    <update handle="checkout_cart_item_renderers"/>
+    <update handle="customer_account"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Magento\Checkout\Block\Cart" name="checkout.cart" template="Netzexpert_OfferSpecialEdition::cart.phtml" cacheable="false">
+                <container name="checkout.cart.items" as="with-items">
+                    <container name="checkout.cart.container" htmlTag="div" htmlClass="cart-container" before="-">
+                        <container name="checkout.cart.form.before" as="form_before" label="Shopping Cart Items Before" htmlTag="div" htmlClass="rewards"/>
+                        <block class="Netzexpert\OfferSpecialEdition\Block\Checkout\OfferCart" name="checkout.cart.account" as="cart-items" template="Netzexpert_OfferSpecialEdition::checkout/cart/form_edited.phtml" after="cart.summary">
+                            <block class="Magento\Framework\View\Element\RendererList" name="checkout.cart.item.renderers" as="renderer.list"/>
+                            <block class="Magento\Framework\View\Element\Text\ListText" name="checkout.cart.order.actions"/>
+                        </block>
+                        <container name="checkout.cart.widget" as="checkout_cart_widget" label="Shopping Cart Items After"/>
+                    </container>
+                    <block class="Magento\Checkout\Block\Cart\Crosssell" name="checkout.cart.crosssell" template="Magento_Catalog::product/list/items.phtml" after="-">
+                        <arguments>
+                            <argument name="type" xsi:type="string">crosssell</argument>
+                        </arguments>
+                    </block>
+                </container>
+                <container name="checkout.cart.noitems" as="no-items">
+                    <block class="Magento\Checkout\Block\Cart" name="checkout.cart.empty" before="-" template="Magento_Checkout::cart/noItems.phtml">
+                        <container name="checkout.cart.empty.widget" as="checkout_cart_empty_widget" label="Empty Shopping Cart Content Before"/>
+                    </block>
+                </container>
+            </block>
+            <block class="Netzexpert\OfferSpecialEdition\Block\Checkout\Cart\FormSendMyAccount" name="offer.form" template="Netzexpert_OfferSpecialEdition::checkout/cart/form_send_my_account.phtml"/>
+        </referenceContainer>
+        <referenceBlock name="checkout.cart.item.renderers">
+            <block class="Magento\Checkout\Block\Cart\Item\Renderer" name="checkout.cart.item.renderers.default" as="default" template="Netzexpert_OfferSpecialEdition::checkout/cart/item/default.phtml">
+                <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions" name="checkout.cart.item.renderers.default.actions" as="actions">
+                    <block class="Netzexpert\OfferSpecialEdition\Block\Checkout\Cart\Item\Renderer\Actions\Edit" name="checkout.cart.item.renderers.default.actions.edit" template="Netzexpert_OfferSpecialEdition::checkout/cart/item/renderer/actions/edit.phtml"/>
+                    <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions\Remove" name="checkout.cart.item.renderers.default.actions.remove" template="Magento_Checkout::cart/item/renderer/actions/remove.phtml"/>
+                </block>
+            </block>
+            <block class="Magento\Checkout\Block\Cart\Item\Renderer" name="checkout.cart.item.renderers.simple" as="simple" template="Magento_Checkout::cart/item/default.phtml">
+                <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions" name="checkout.cart.item.renderers.simple.actions" as="actions">
+                    <block class="Netzexpert\OfferSpecialEdition\Block\Checkout\Cart\Item\Renderer\Actions\Edit" name="checkout.cart.item.renderers.simple.actions.edit" template="Netzexpert_OfferSpecialEdition::checkout/cart/item/renderer/actions/edit.phtml"/>
+                    <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions\Remove" name="checkout.cart.item.renderers.simple.actions.remove" template="Magento_Checkout::cart/item/renderer/actions/remove.phtml"/>
+                </block>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

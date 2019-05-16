@@ -1,0 +1,24 @@
+<!--@subject {{trans "Information & Angebotsanfrage" store_name=$store.getFrontendName()}} @-->
+{{template config_path="design/email/header_template"}}
+<table class="greetings">
+    <tr>
+        <th>
+            Greetings {{var name}}!
+        </th>
+    </tr>
+</table>
+<table class="table">
+    <tr>
+        <th>
+            Unfortunately, at the current moment your product configuration is not available.
+            <br>You can configure other product and proceed to checkout.
+            <br>We will contact you with other offerings.
+        </th>
+    </tr>
+    <tr>
+        <td>
+            {{var link}}
+        </td>
+    </tr>
+</table>
+{{template config_path="design/email/footer_template"}}
