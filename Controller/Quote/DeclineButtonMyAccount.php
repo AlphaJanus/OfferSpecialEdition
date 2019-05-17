@@ -32,7 +32,7 @@ class DeclineButtonMyAccount extends \Magento\Framework\App\Action\Action
     private $redirectFactory;
 
     /**
-     * @var \Netzexpert\OrderApproval\Model\SendUserDecline
+     * @var \Netzexpert\OfferSpecialEdition\Model\SendUserDecline
      */
     private $sendUserDecline;
 
@@ -51,7 +51,7 @@ class DeclineButtonMyAccount extends \Magento\Framework\App\Action\Action
         \Magento\Framework\App\RequestInterface $request,
         \Magento\Framework\Message\ManagerInterface $messageManager,
         \Magento\Framework\Controller\Result\RedirectFactory $redirectFactory,
-        \Netzexpert\OrderApproval\Model\SendUserDecline $sendUserDecline,
+        \Netzexpert\OfferSpecialEdition\Model\SendUserDecline $sendUserDecline,
         Context $context
     ) {
         $this->session = $session;
