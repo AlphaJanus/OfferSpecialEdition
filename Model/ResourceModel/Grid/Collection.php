@@ -45,7 +45,7 @@ class Collection extends \Magento\Framework\View\Element\UiComponent\DataProvide
         FetchStrategy $fetchStrategy,
         ManagerInterface $eventManager,
         $mainTable = 'offer_quote',
-        $resourceModel = 'Netzexpert\Offer\Model\ResourceModel\Offer',
+        $resourceModel = 'Netzexpert\OfferSpecialEdition\Model\ResourceModel\Offer',
         $identifierName = null,
         $connectionName = null
     )
