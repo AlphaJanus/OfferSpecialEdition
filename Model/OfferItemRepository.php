@@ -31,7 +31,7 @@ class OfferItemRepository implements \Netzexpert\OfferSpecialEdition\Api\OfferIt
      */
     public function __construct(
         OfferItemFactory $offerItemFactory,
-        \Netzexpert\Offer\Model\ResourceModel\OfferItem $resourceModel
+        \Netzexpert\OfferSpecialEdition\Model\ResourceModel\OfferItem $resourceModel
     )
     {
         $this->offerItemFactory = $offerItemFactory;
