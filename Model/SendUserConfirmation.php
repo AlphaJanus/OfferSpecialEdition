@@ -43,6 +43,11 @@ class SendUserConfirmation extends \Magento\Framework\App\Action\Action
     private $session;
 
     /**
+     * @var \Netzexpert\Offer\Model\OfferRepository 
+     */
+    private $offerRepository;
+
+    /**
      * SendCartMyAccount constructor.
      * @param Context $context
      * @param \Magento\Framework\App\Request\Http $request
@@ -58,7 +63,8 @@ class SendUserConfirmation extends \Magento\Framework\App\Action\Action
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Framework\UrlInterface $urlInterface,
         \Magento\Quote\Model\QuoteRepository $quoteRepository,
-        \Magento\Checkout\Model\Session $session
+        \Magento\Checkout\Model\Session $session,
+        \Netzexpert\Offer\Model\OfferRepository $offerRepository
 
     ) {
         $this->request = $request;
@@ -67,6 +73,7 @@ class SendUserConfirmation extends \Magento\Framework\App\Action\Action
         $this->_url = $urlInterface;
         $this->quoteRepository = $quoteRepository;
         $this->session = $session;
+        $this->offerRepository = $offerRepository;
         parent::__construct($context);
     }
 
@@ -80,7 +87,8 @@ class SendUserConfirmation extends \Magento\Framework\App\Action\Action
         $store = $this->storeManager->getStore()->getId();
         $param = $this->request->getParam('offer_id');
         try {
-            $quote = $this->quoteRepository->get($param);
+            $offerQuote = $this->offerRepository->getById($param)->getQuoteId();
+            $quote = $this->quoteRepository->get($offerQuote);
         } catch (\Exception $exception) {
             $this->messageManager->getMessages();
         }
