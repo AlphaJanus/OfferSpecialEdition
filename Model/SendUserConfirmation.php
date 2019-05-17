@@ -43,7 +43,7 @@ class SendUserConfirmation extends \Magento\Framework\App\Action\Action
     private $session;
 
     /**
-     * @var \Netzexpert\Offer\Model\OfferRepository 
+     * @var \Netzexpert\OfferSpecialEdition\Model\OfferRepository 
      */
     private $offerRepository;
 
@@ -64,7 +64,7 @@ class SendUserConfirmation extends \Magento\Framework\App\Action\Action
         \Magento\Framework\UrlInterface $urlInterface,
         \Magento\Quote\Model\QuoteRepository $quoteRepository,
         \Magento\Checkout\Model\Session $session,
-        \Netzexpert\Offer\Model\OfferRepository $offerRepository
+        \Netzexpert\OfferSpecialEdition\Model\OfferRepository $offerRepository
 
     ) {
         $this->request = $request;
