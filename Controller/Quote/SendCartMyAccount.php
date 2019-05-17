@@ -39,7 +39,7 @@ class SendCartMyAccount extends \Magento\Framework\App\Action\Action
     private $quoteRepository;
 
     /**
-     * @var \Netzexpert\Offer\Model\OfferRepository
+     * @var \Netzexpert\OfferSpecialEdition\Model\OfferRepository
      */
     private $offerRepository;
 
@@ -59,7 +59,7 @@ class SendCartMyAccount extends \Magento\Framework\App\Action\Action
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Framework\UrlInterface $urlInterface,
         \Magento\Quote\Api\CartRepositoryInterface $quoteRepository,
-        \Netzexpert\Offer\Model\OfferRepository $offerRepository
+        \Netzexpert\OfferSpecialEdition\Model\OfferRepository $offerRepository
     ) {
         $this->request = $request;
         $this->transportBuilder = $transportBuilder;
