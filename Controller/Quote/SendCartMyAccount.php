@@ -39,6 +39,11 @@ class SendCartMyAccount extends \Magento\Framework\App\Action\Action
     private $quoteRepository;
 
     /**
+     * @var \Netzexpert\Offer\Model\OfferRepository
+     */
+    private $offerRepository;
+
+    /**
      * SendCartMyAccount constructor.
      * @param Context $context
      * @param \Magento\Framework\App\Request\Http $request
@@ -53,13 +58,15 @@ class SendCartMyAccount extends \Magento\Framework\App\Action\Action
         \Magento\Framework\Mail\Template\TransportBuilder $transportBuilder,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Framework\UrlInterface $urlInterface,
-        \Magento\Quote\Api\CartRepositoryInterface $quoteRepository
+        \Magento\Quote\Api\CartRepositoryInterface $quoteRepository,
+        \Netzexpert\Offer\Model\OfferRepository $offerRepository
     ) {
         $this->request = $request;
         $this->transportBuilder = $transportBuilder;
         $this->storeManager = $storeManager;
         $this->_url = $urlInterface;
         $this->quoteRepository = $quoteRepository;
+        $this->offerRepository = $offerRepository;
         parent::__construct($context);
     }
 
@@ -72,7 +79,8 @@ class SendCartMyAccount extends \Magento\Framework\App\Action\Action
     {
         $data = $this->request->getParams();
         $store = $this->storeManager->getStore()->getId();
-        $quote = $this->quoteRepository->get($data['offer_id']);
+        $offerQuote = $this->offerRepository->getById($data['offer_id'])->getQuoteId();
+        $quote = $this->quoteRepository->get($offerQuote);
         $link = $this->_url->getUrl('offer/quote/duplicate', ['id' => $quote->getId()]);
         $feedback = $this->_url->getUrl('contact/index/index');
         $transport = $this->transportBuilder->setTemplateIdentifier($data['template'])
