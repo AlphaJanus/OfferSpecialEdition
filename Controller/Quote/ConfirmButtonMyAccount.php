@@ -33,7 +33,7 @@ class ConfirmButtonMyAccount extends \Magento\Framework\App\Action\Action
     private $redirectFactory;
 
     /**
-     * @var \Netzexpert\OrderApproval\Model\SendUserConfirmation
+     * @var \Netzexpert\OfferSpecialEdition\Model\SendUserConfirmation
      */
     private $sendUserConfirmation;
 
@@ -73,7 +73,7 @@ class ConfirmButtonMyAccount extends \Magento\Framework\App\Action\Action
         \Magento\Framework\App\RequestInterface $request,
         \Magento\Framework\Message\ManagerInterface $messageManager,
         \Magento\Framework\Controller\Result\RedirectFactory $redirectFactory,
-        \Netzexpert\OrderApproval\Model\SendUserConfirmation $sendUserConfirmation,
+        \Netzexpert\OfferSpecialEdition\Model\SendUserConfirmation $sendUserConfirmation,
         \Netzexpert\OfferSpecialEdition\Model\OfferRepository $offerRepository,
         \Magento\Framework\App\ResponseFactory $responseFactory,
         \Netzexpert\OfferSpecialEdition\Model\Offer $offer,
@@ -98,6 +98,7 @@ class ConfirmButtonMyAccount extends \Magento\Framework\App\Action\Action
     public function execute()
     {
         $resultRedirect = $this->redirectFactory->create();
+        $test = $this->request->getParams();
         $param = $this->request->getParam('offer_id');
         try {
             $quote = $this->offerRepository->get($param);
@@ -114,11 +115,11 @@ class ConfirmButtonMyAccount extends \Magento\Framework\App\Action\Action
             }
             $this->messageManager->addSuccessMessage('You have successfully granted user permissions for proceeding checkout!');
             $resultRedirect->setPath('/');
+            $this->userApprove();
             return $resultRedirect;
         }
         $this->messageManager->addErrorMessage('User already has permissions for proceeding checkout.');
         $resultRedirect->setPath('/');
-        $this->userApprove();
         return $resultRedirect;
     }
 
