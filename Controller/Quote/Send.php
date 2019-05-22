@@ -191,7 +191,7 @@ class Send extends \Magento\Framework\App\Action\Action
         $quote = $this->checkoutSession->getQuote();
         $id = $quote['entity_id'];
         $dataEmail = $this->request->getParams();
-        $offerQuote = $this->offerRepository->get($id);
+        $offerQuote = $this->offerRepository->getByQuoteId($id);
         if (!$offerQuote) {
             $offerQuote = $this->offerFactory->create();
         }
@@ -212,8 +212,11 @@ class Send extends \Magento\Framework\App\Action\Action
      */
     private function redirectQuote()
     {
-        if ($this->customerSession->isLoggedIn() == false) {
+//        if ($this->customerSession->isLoggedIn() == false) {
             $currentQuote = $this->checkoutSession->getQuote();
+            $offerQuote = $this->offerRepository->getByQuoteId($currentQuote->getData('entity_id'));
+            $currentQuote->setData('offer_id', $offerQuote->getData('entity_id'));
+            $currentQuote->save();
             $this->checkoutSession->setQuoteId(null);
             $customer = $currentQuote->getCustomer();
             $store = $this->storeManager->getStore();
@@ -262,5 +265,5 @@ class Send extends \Magento\Framework\App\Action\Action
             }
             $this->checkoutSession->replaceQuote($newQuote);
         }
-    }
+//    }
 }
