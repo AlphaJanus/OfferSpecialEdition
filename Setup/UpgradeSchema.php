@@ -25,6 +25,16 @@ class UpgradeSchema implements UpgradeSchemaInterface
                 'comment'  => 'Check if order is approved'
             ]
         );
+        $setup->getConnection()->addColumn(
+            $setup->getTable('quote'),
+            'offer_id',
+            [
+                'type' => \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                'nullable' => true,
+                'comment'  => 'entity_id of the table "offer_quote"'
+            ]
+        );
+
         $setup->endSetup();
     }
 }
