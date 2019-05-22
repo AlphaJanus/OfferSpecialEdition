@@ -129,6 +129,16 @@ class OfferRepository implements \Netzexpert\OfferSpecialEdition\Api\OfferReposi
         }
         return $offer;
     }
+    
+    public function getByQuoteId($quoteId)
+    {
+        $offer = $this->offerFactory->create();
+        $offer->load($quoteId, 'quote_id');
+        if (!$offer->getQuoteId()) {
+            return null;
+        }
+        return $offer;
+    }
 
     public function getApprovedUserId($approvedUserId)
     {
