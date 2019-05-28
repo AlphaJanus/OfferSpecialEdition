@@ -26,6 +26,16 @@ class Collection extends \Magento\Framework\View\Element\UiComponent\DataProvide
     private $checkoutSession;
 
     /**
+     * @var \Magento\Customer\Model\Session
+     */
+    private $customerSession;
+
+    /**
+     * @var \Magento\Customer\Api\GroupRepositoryInterface
+     */
+    private $groupRepository;
+
+    /**
      * Collection constructor.
      * @param \Magento\Checkout\Model\Session $session
      * @param EntityFactory $entityFactory
@@ -40,6 +50,8 @@ class Collection extends \Magento\Framework\View\Element\UiComponent\DataProvide
      */
     public function __construct(
         \Magento\Checkout\Model\Session $session,
+        \Magento\Customer\Model\Session $customerSession,
+        \Magento\Customer\Api\GroupRepositoryInterface $groupRepository,
         EntityFactory $entityFactory,
         LoggerInterface $logger,
         FetchStrategy $fetchStrategy,
@@ -51,6 +63,8 @@ class Collection extends \Magento\Framework\View\Element\UiComponent\DataProvide
     )
     {
         $this->checkoutSession = $session;
+        $this->customerSession = $customerSession;
+        $this->groupRepository = $groupRepository;
         parent::__construct(
             $entityFactory,
             $logger,
@@ -65,6 +79,11 @@ class Collection extends \Magento\Framework\View\Element\UiComponent\DataProvide
 
     protected function _initSelect(){
         parent::_initSelect();
+        $customerGroup = $this->customerSession->getCustomer()->getGroupId();
+        $group = $this->groupRepository->getById($customerGroup);
+        if ($group->getCode() == 'Anfragen') {
+            return $this;
+        }
         $customerId = $this->checkoutSession->getQuote();
         $this->addFieldToFilter('customer_id', $customerId->getData('customer_id'));
         return $this;
