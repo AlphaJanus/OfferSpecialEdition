@@ -2,8 +2,7 @@
 /** @var $block \Netzexpert\OfferSpecialEdition\Block\Checkout\Cart\Form */
 ?>
 <form id="send-quote-form-general" class="form_email" method="post" xmlns="http://www.w3.org/1999/html">
-    <input name="email" placeholder="Enter email address" title="<?php /* @escapeNotVerified */ echo __('Email') ?>"
-           value="<?php echo $block->escapeHtml($block->getStoreEmail()) ?>"
+    <input name="email" placeholder="<?php echo __('Enter email address')?>" title="<?php /* @escapeNotVerified */ echo __('Email') ?>"
            class="input-email" type="email" data-validate="{required:true, 'validate-email':true, equalTo:'#email'}"/>
     <input name="name" placeholder="Enter name and surname" title="<?php /* @escapeNotVerified */ echo __('Name') ?>"
            value="<?php echo $block->escapeHtml($this->helper('Magento\Contact\Helper\Data')->getPostValue('name') ?: $this->helper('Magento\Contact\Helper\Data')->getUserName()) ?>"
@@ -31,7 +30,7 @@
     </button>
     <div class="information-text">
         <blockquote>
-        "um Ihre Zufriedenheit während des gesamten Bestellprozesses weiterhin gewährleisten zu können, weißen wir an dieser Stelle darauf hin, dass wir die "Kauftaste" entfernen mussten und mit „Anfrage senden“ ersetzen."
+        "um Ihre Zufriedenheit während des gesamten Bestellprozesses weiterhin gewährleisten zu können, weißen wir an dieser Stelle darauf hin, dass wir die "Kauftaste" entfernen mussten und mit „Anfrage senden“ ersetzen. Dies hat den Grund, dass bevor eine Bestellung tatsächlich in unserem System eingeht, wir zu prüfen haben, ob die von Ihnen gewünschte Rohstoffe, welche für Ihre Schmuckstücke verwendet und produziert werden vorhanden sind. Erst nach erfolgreichem Abgleich, Prüfung und Freigabe der Materialien, werden Sie in der Regel innerhalb 24h für die Bezahlung freigeschalten. Anschließend können Sie die von Ihnen getätigte Bestellung abschließen."
         </blockquote>
     </div>
 </form>
@@ -58,4 +57,3 @@
         });
     });
 </script>
-
