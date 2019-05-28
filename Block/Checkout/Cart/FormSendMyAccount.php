@@ -34,6 +34,11 @@ class FormSendMyAccount extends \Magento\Framework\View\Element\Template
     protected $_request;
 
     /**
+     * @var \Netzexpert\OfferSpecialEdition\Model\OfferRepository
+     */
+    private $offerRepository;
+
+    /**
      * Form constructor.
      * @param \Magento\Customer\Model\Session $session
      * @param Template\Context $context
@@ -47,10 +52,13 @@ class FormSendMyAccount extends \Magento\Framework\View\Element\Template
         Config $config,
         \Magento\Customer\Api\GroupRepositoryInterface $groupRepository,
         \Magento\Framework\App\RequestInterface $request,
-        array $data = [])
+        \Netzexpert\OfferSpecialEdition\Model\OfferRepository $offerRepository,
+        array $data = []
+    )
     {
         $this->customerSession = $session;
         $this->groupRepository = $groupRepository;
+        $this->offerRepository = $offerRepository;
         $this->_request = $request;
         parent::__construct($context, $data);
         $this->emailConfig = $config;
@@ -59,8 +67,11 @@ class FormSendMyAccount extends \Magento\Framework\View\Element\Template
     public function getAvailableTemplates() {
         $templates = $this->emailConfig->getAvailableTemplates();
         $module = 'Netzexpert_OfferSpecialEdition';
-        return array_filter($templates, function ($var) use ($module) {
-            return ($var['group'] == $module);
+        $email1 = 'offer_email_template1';
+        $email2 = 'offer_email_template2';
+        return array_filter($templates, function ($var) use ($module, $email1, $email2) {
+            return (($var['group'] == $module && $var['value'] == $email1) ||
+                ($var['group'] == $module && $var['value'] == $email2));
         });
     }
 
@@ -115,5 +126,12 @@ class FormSendMyAccount extends \Magento\Framework\View\Element\Template
             return true;
         }
         return false;
+    }
+
+    public function getQuoteEmail()
+    {
+        $params = $this->_request->getParams();
+        $quote = $this->offerRepository->getById($params['entity_id']);
+        return $quote->getData('email');
     }
 }
