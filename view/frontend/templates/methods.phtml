@@ -1,0 +1,20 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var $block \Netzexpert\OfferSpecialEdition\Block\Checkout\Cart\LinkCheck */
+
+?>
+<?php if (!$block->hasError() && $block->checkUserPermissions() == true):?>
+    <?php $methods = $block->getMethods('methods') ?: $block->getMethods('top_methods') ?>
+    <ul class="checkout methods items checkout-methods-items">
+        <?php foreach ($methods as $method): ?>
+            <?php $methodHtml = $block->getMethodHtml($method); ?>
+            <?php if (trim($methodHtml) !== ''): ?>
+                <li class="item"><?= /* @escapeNotVerified */ $methodHtml ?></li>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>
