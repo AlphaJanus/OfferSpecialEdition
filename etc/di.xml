@@ -14,4 +14,9 @@
                 type="\Netzexpert\OfferSpecialEdition\Plugin\Cart\ConfigurePlugin"
                 sortOrder="1" />
     </type>
+    <type name="\Magento\Checkout\Helper\Data">
+        <plugin name="check_button"
+                type="\Netzexpert\OfferSpecialEdition\Plugin\Cart\DataPlugin"
+                sortOrder="1" />
+    </type>
 </config>
