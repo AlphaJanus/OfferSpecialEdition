@@ -91,6 +91,11 @@ class Send extends \Magento\Framework\App\Action\Action
     private $message;
 
     /**
+     * @var \Magento\Framework\App\Config\ScopeConfigInterface
+     */
+    private $scopeConfig;
+
+    /**
      * Send constructor.
      * @param Context $context
      * @param \Magento\Framework\App\Request\Http $request
@@ -125,7 +130,8 @@ class Send extends \Magento\Framework\App\Action\Action
         \Magento\Framework\Controller\Result\RedirectFactory $redirectFactory,
         \Magento\Quote\Model\QuoteFactory $quote,
         ProductRepository $productRepository,
-        \Magento\Framework\Message\Manager $message
+        \Magento\Framework\Message\Manager $message,
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
     ) {
         $this->request = $request;
         $this->checkoutSession  = $session;
@@ -142,6 +148,7 @@ class Send extends \Magento\Framework\App\Action\Action
         $this->quote = $quote;
         $this->productRepository = $productRepository;
         $this->message = $message;
+        $this->scopeConfig = $scopeConfig;
         parent::__construct($context);
     }
 
@@ -170,15 +177,23 @@ class Send extends \Magento\Framework\App\Action\Action
                 ]
             )
             ->setFrom('general')
-            ->addTo($data['email'])
+            ->addTo($this->getStoreEmail())
             ->getTransport();
         $this->saveQuote($quote);
         $this->redirectQuote();
         $transport->sendMessage();
-        $this->messageManager->addSuccessMessage('um Ihre Zufriedenheit während des gesamten Bestellprozesses weiterhin gewährleisten zu können, weißen wir an dieser Stelle darauf hin, dass wir die "Kauftaste" entfernen mussten und mit „Anfrage senden“ ersetzen. Dies hat den Grund, dass bevor eine Bestellung tatsächlich in unserem System eingeht, wir zu prüfen haben, ob die von Ihnen gewünschte Rohstoffe, welche für Ihre Schmuckstücke verwendet und produziert werden vorhanden sind. Erst nach erfolgreichem Abgleich, Prüfung und Freigabe der Materialien, werden Sie in der Regel innerhalb 24h für die Bezahlung freigeschalten. Anschließend können Sie die von Ihnen getätigte Bestellung abschließen.');
+        $this->messageManager->addSuccessMessage('You have succesfully sent your cart for reviewing. You will be notified via email.');
         $resultRedirect = $this->redirectFactory->create();
         $resultRedirect->setPath('/');
         return $resultRedirect;
+    }
+
+    public function getStoreEmail()
+    {
+        return $this->scopeConfig->getValue(
+            'trans_email/ident_sales/email',
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
     }
 
     /**
@@ -221,11 +236,13 @@ class Send extends \Magento\Framework\App\Action\Action
             $customer = $currentQuote->getCustomer();
             $store = $this->storeManager->getStore();
             $quoteItems = $currentQuote->getItems();
+//            $offerQuote = $this->offerRepository->getByQuoteId($currentQuote->getData('entity_id'));
             if (empty($quoteItems)) {
                 return;
             }
             $newQuote = $this->quote->create();
             $newQuote->setData($currentQuote->getData());
+//            $newQuote->setData('offer_id', $offerQuote->getData('entity_id'));
             $newQuote->setId(null);
             $newQuote->assignCustomer($customer);
             $newQuote->setStore($store);
