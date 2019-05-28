@@ -51,7 +51,7 @@ class DeclineButtonMyAccount extends \Magento\Framework\App\Action\Action
         \Magento\Framework\App\RequestInterface $request,
         \Magento\Framework\Message\ManagerInterface $messageManager,
         \Magento\Framework\Controller\Result\RedirectFactory $redirectFactory,
-        \Netzexpert\OfferSpecialEdition\Model\SendUserDecline $sendUserDecline,
+        \Netzexpert\OrderApproval\Model\SendUserDecline $sendUserDecline,
         Context $context
     ) {
         $this->session = $session;
