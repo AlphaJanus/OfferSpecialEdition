@@ -4,7 +4,7 @@
 <form id="send-quote-form" class="form_cart" method="post">
     <input type="hidden" name="offer_id" value="<?= $block->getOfferId(); ?>" />
     <input name="email" placeholder="Enter email address" title="<?php /* @escapeNotVerified */ echo __('Email') ?>"
-           value="<?php echo $block->escapeHtml($block->getStoreEmail()) ?>"
+           value="<?php echo $block->getQuoteEmail() ?>"
            class="input-email" type="email" data-validate="{required:true, 'validate-email':true, equalTo:'#email'}"/>
     <input name="name" placeholder="Enter name and surname" title="<?php /* @escapeNotVerified */ echo __('Name') ?>"
            value="<?php echo $block->escapeHtml($this->helper('Magento\Contact\Helper\Data')->getPostValue('name') ?: $this->helper('Magento\Contact\Helper\Data')->getUserName()) ?>"
