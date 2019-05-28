@@ -77,7 +77,6 @@
         <column name="date">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="sortable" xsi:type="boolean">true</item>
                     <item name="label" xsi:type="string" translate="true">Date</item>
                 </item>
             </argument>
@@ -85,7 +84,6 @@
         <column name="email">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="sortable" xsi:type="boolean">true</item>
                     <item name="label" xsi:type="string" translate="true">Email</item>
                 </item>
             </argument>
@@ -93,7 +91,6 @@
         <column name="approved_by_user_id" class="\Netzexpert\OfferSpecialEdition\Ui\Component\Listing\Column\ApprovedByUser">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="sortable" xsi:type="boolean">true</item>
                     <item name="label" xsi:type="string" translate="true">Confirmation User Email</item>
                     <item name="sortOrder" xsi:type="number">3</item>
                 </item>
