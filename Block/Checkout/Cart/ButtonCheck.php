@@ -38,6 +38,9 @@ class ButtonCheck extends Link
         $quote = $this->_checkoutSession->getQuoteId();
         $currentQuote = $this->_checkoutSession->getQuote();
         $offer = $this->offerRepository->getById($currentQuote->getData('offer_id'));
+        if (!$offer) {
+            return false;
+        } else
         if ($offer->getData('is_order') == 1) {
             return true;
         }
