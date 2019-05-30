@@ -263,8 +263,10 @@ class Send extends \Magento\Framework\App\Action\Action
                 unset($data['item_id']);
                 unset($data['quote_id']);
                 try {
-                    $product = $this->productRepository->get($itemSku);
                     $request = $item->getBuyRequest();
+                    $productId = $request->getData('product');
+                    $product = $this->productRepository->getById($productId);
+//                    $product = $this->productRepository->get($productId);
                     $newItem = $newQuote->addProduct($product, $request);
                     $newItem->setData($data);
                     $newItem->calcRowTotal()->save();
