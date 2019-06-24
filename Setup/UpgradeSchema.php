@@ -14,7 +14,16 @@ use Magento\Framework\Setup\SchemaSetupInterface;
 
 class UpgradeSchema implements UpgradeSchemaInterface
 {
-    public function upgrade(SchemaSetupInterface $setup, ModuleContextInterface $context)
+    public function upgrade(SchemaSetupInterface $setup, ModuleContextInterface $context) {
+
+        $setup->startSetup();
+        if (version_compare($context->getVersion(), '2.0.1') < 0) {
+            $this->upgradeVersion($setup, $context);
+        }
+        $setup->endSetup();
+    }
+    
+    public function upgradeVersion(SchemaSetupInterface $setup, ModuleContextInterface $context)
     {
         $setup->getConnection()->addColumn(
             $setup->getTable('offer_quote'),
@@ -34,7 +43,6 @@ class UpgradeSchema implements UpgradeSchemaInterface
                 'comment'  => 'entity_id of the table "offer_quote"'
             ]
         );
-
         $setup->endSetup();
     }
 }
