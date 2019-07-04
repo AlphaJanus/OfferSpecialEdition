@@ -87,7 +87,7 @@ class SendUserConfirmation extends \Magento\Framework\App\Action\Action
         $store = $this->storeManager->getStore()->getId();
         $param = $this->request->getParam('offer_id');
         try {
-            $offerQuote = $this->offerRepository->getById($param)->getQuoteId();
+            $offerQuote = $this->offerRepository->getByQuoteId($param)->getQuoteId();
             $quote = $this->quoteRepository->get($offerQuote);
         } catch (\Exception $exception) {
             $this->messageManager->getMessages();
