@@ -164,6 +164,7 @@ class Send extends \Magento\Framework\App\Action\Action
         $quote = $this->checkoutSession->getQuote();
         $link = $this->_url->getUrl('offer/quote/duplicate', ['id' => $quote->getId()]);
         $feedback = $this->_url->getUrl('contact/index/index');
+        $this->saveQuote($quote);
         $transport = $this->transportBuilder->setTemplateIdentifier($data['template'])
             ->setTemplateOptions(['area' => 'frontend', 'store' => $store])
             ->setTemplateVars(
@@ -179,7 +180,6 @@ class Send extends \Magento\Framework\App\Action\Action
             ->setFrom('general')
             ->addTo($this->getStoreEmail())
             ->getTransport();
-        $this->saveQuote($quote);
         $this->redirectQuote();
         $transport->sendMessage();
         $this->messageManager->addSuccessMessage('You have succesfully sent your cart for reviewing. You will be notified via email.');
