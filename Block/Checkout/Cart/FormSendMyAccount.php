@@ -114,7 +114,8 @@ class FormSendMyAccount extends \Magento\Framework\View\Element\Template
     public function getOfferId()
     {
         $currentEntityId = $this->_request->getParam('entity_id');
-        return $currentEntityId;
+        $quoteId = $this->offerRepository->getById($currentEntityId);
+        return $quoteId->getQuoteId();
     }
 
     public function checkButtonsCustomer()
