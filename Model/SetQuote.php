@@ -57,9 +57,9 @@ class SetQuote
     {
         if($id > 0)
         {
-            $offerQuote = $this->offerRepository->getById($id)->getQuoteId();
+//            $offerQuote = $this->offerRepository->getById($id)->getQuoteId();
             try {
-                $originalQuote = $this->quoteRepository->get($offerQuote);
+                $originalQuote = $this->quoteRepository->get($id);
             } catch (NoSuchEntityException $exception) {
                 $this->messageManager->addError(__($exception->getMessage()));
                 return false;
