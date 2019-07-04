@@ -101,7 +101,7 @@ class ConfirmButtonMyAccount extends \Magento\Framework\App\Action\Action
         $test = $this->request->getParams();
         $param = $this->request->getParam('offer_id');
         try {
-            $quote = $this->offerRepository->get($param);
+            $quote = $this->offerRepository->getByQuoteId($param);
         } catch (\Exception $exception) {
             $this->messageManager->getMessages();
         }
