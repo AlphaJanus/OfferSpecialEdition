@@ -79,8 +79,8 @@ class SendCartMyAccount extends \Magento\Framework\App\Action\Action
     {
         $data = $this->request->getParams();
         $store = $this->storeManager->getStore()->getId();
-        $offerQuote = $this->offerRepository->getById($data['offer_id'])->getQuoteId();
-        $quote = $this->quoteRepository->get($offerQuote);
+//        $offerQuote = $this->offerRepository->getByQuoteId($data['offer_id'])->getQuoteId();
+        $quote = $this->quoteRepository->get($data['offer_id']);
         $link = $this->_url->getUrl('offer/quote/duplicate', ['id' => $quote->getId()]);
         $feedback = $this->_url->getUrl('contact/index/index');
         $transport = $this->transportBuilder->setTemplateIdentifier($data['template'])
