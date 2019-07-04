@@ -10,6 +10,7 @@ namespace Netzexpert\OfferSpecialEdition\Block\Checkout\Cart;
 
 use Magento\Email\Model\Template\Config;
 use Magento\Framework\View\Element\Template;
+use \Magento\Checkout\Model\Session;
 
 class Form extends \Magento\Framework\View\Element\Template
 {
@@ -34,6 +35,16 @@ class Form extends \Magento\Framework\View\Element\Template
     protected $_scopeConfig;
 
     /**
+     * @var Session
+     */
+    private $checkoutSession;
+
+    /**
+     * @var \Netzexpert\OfferSpecialEdition\Model\OfferRepository
+     */
+    private $offerRepository;
+
+    /**
      * Form constructor.
      * @param \Magento\Customer\Model\Session $session
      * @param Template\Context $context
@@ -47,11 +58,15 @@ class Form extends \Magento\Framework\View\Element\Template
         Config $config,
         \Magento\Customer\Api\GroupRepositoryInterface $groupRepository,
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
+        \Magento\Checkout\Model\Session $checkoutSession,
+        \Netzexpert\OfferSpecialEdition\Model\OfferRepository $offerRepository,
         array $data = [])
     {
         $this->customerSession = $customerSession;
         $this->groupRepository = $groupRepository;
         $this->_scopeConfig = $scopeConfig;
+        $this->checkoutSession = $checkoutSession;
+        $this->offerRepository = $offerRepository;
         parent::__construct($context, $data);
         $this->emailConfig = $config;
     }
@@ -101,5 +116,14 @@ class Form extends \Magento\Framework\View\Element\Template
             return true;
         }
         return false;
+    }
+
+    /**
+     * @return int
+     */
+    public function getOfferId() {
+        $checkoutQuote = $this->checkoutSession->getQuote();
+        $quoteId = $checkoutQuote->getId();
+        return $quoteId;
     }
 }
