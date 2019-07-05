@@ -148,8 +148,8 @@ class Grid extends \Magento\Checkout\Block\Cart
             /** @var \Magento\Quote\Model\ResourceModel\Quote\Item\Collection $itemCollection */
             $itemCollection = $this->itemCollectionFactory->create();
             $data = $this->request->getParams();
-            $offerQuote = $this->offerRepository->getById($data['offer_id'])->getQuoteId();
-            $quote = $this->quoteRepository->get($offerQuote);
+//            $offerQuote = $this->offerRepository->getById($data['offer_id'])->getQuoteId();
+            $quote = $this->quoteRepository->get($data['offer_id']);
             $itemCollection->setQuote($quote);
             $itemCollection->addFieldToFilter('parent_item_id', ['null' => true]);
             $this->joinAttributeProcessor->process($itemCollection);
