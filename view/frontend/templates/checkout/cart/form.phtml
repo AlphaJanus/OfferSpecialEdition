@@ -2,6 +2,7 @@
 /** @var $block \Netzexpert\OfferSpecialEdition\Block\Checkout\Cart\Form */
 ?>
 <form id="send-quote-form-general" class="form_email" method="post" xmlns="http://www.w3.org/1999/html">
+    <input type="hidden" name="offer_id" value="<?= $block->getOfferId(); ?>" />
     <input name="email" placeholder="<?php echo __('Enter email address')?>" title="<?php /* @escapeNotVerified */ echo __('Email') ?>"
            class="input-email" type="email" data-validate="{required:true, 'validate-email':true, equalTo:'#email'}"/>
     <input name="name" placeholder="Enter name and surname" title="<?php /* @escapeNotVerified */ echo __('Name') ?>"
