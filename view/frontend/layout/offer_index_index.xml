@@ -2,7 +2,7 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <head>
         <css src="Netzexpert_OfferSpecialEdition::css/backend.css"/>
-        <title>My Saved Carts</title>
+        <title>My saved carts</title>
     </head>
     <update handle="customer_account"/>
     <body>

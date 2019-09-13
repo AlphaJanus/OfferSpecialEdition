@@ -1,0 +1,33 @@
+"Database connection error","Database connection error"
+"Database deadlock found when trying to get lock","Database deadlock found when trying to get lock"
+"Database lock wait timeout exceeded","Database lock wait timeout exceeded"
+"Unable to save offer","Unable to save offer"
+"Unable to delete offer","Unable to delete offer"
+"Unable to remove reminder %1","Unable to remove reminder %1"
+View,View
+"Enter email address","Ihre Email Adresse"
+"Enter name and surname","Ihr Name"
+"Leave your comment here","Weitere wünsche?"
+"Send Cart","Warenkorb senden"
+"Shopping Cart Items","Shopping Cart Items"
+Item,Item
+Price,Price
+Qty,Qty
+Subtotal,Subtotal
+Email,Email
+Name,Name
+Comment,Comment
+"See price before order confirmation.","See price before order confirmation."
+"What's this?","What's this?"
+"Edit item parameters","Edit item parameters"
+Edit,Edit
+Test,Test
+"My saved carts","Gespeicherte Warenkörbe"
+20,20
+30,30
+50,50
+100,100
+200,200
+IDs,IDs
+Date,Date
+"If you have questions about your configuration, use this form. We are always happy to help.","Falls Fragen zu Ihrer Konfiguration sind, verwenden Sie dieses Formular. Gerne sind wir jederzeit behilflich."
