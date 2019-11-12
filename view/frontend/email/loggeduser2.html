@@ -1,16 +1,25 @@
-<!--@subject {{trans "Information & Angebotsanfrage" store_name=$store.getFrontendName()}} @-->
+<!--@subject {{trans "Ihr Warenkorb" store_name=$store.getFrontendName()}} @-->
 {{template config_path="design/email/header_template"}}
 <table class="greetings">
     <tr>
         <th>
-            Greetings {{var name}}
+            Hallo {{var name}}
         </th>
     </tr>
 </table>
+<style>
+    span {
+        font-weight: normal;
+    }
+</style>
 <table class="table">
     <tr>
         <th>
-            Please, follow this link to view the cart.
+            <span>wie Sie sicherlich schon bemerkt haben, sind wir sehr innovativ nicht nur in unserer Produktion, sondern auch im Bestellprozess.</span>
+            <span><br>Wir senden Ihnen diesen Warenkorb, um noch mehr Service zu bieten.</span>
+            <span><br>Unter diesem Link erhalten Sie ihren individuell auf Sie abgestimmten Warenkorb und können wie im Onlinegeschäft gewöhnt, den Bestellprozess eigenständig abschliessen.</span>
+            <br>BITTE ÜBERPRÜFEN SIE DIE ANGABEN AUF RICHTIGKEIT!
+            <span><br>vielen Dank für Ihre Anfrage.</span>
         </th>
     </tr>
     <tr>
@@ -21,7 +30,7 @@
 </table>
 <br>
 {{if comment }}
-<strong>User's comment:</strong>
+<strong>Kommentar:</strong>
 <table class="table">
     <tr>
         <td bgcolor=#EAEAEA>
@@ -31,17 +40,14 @@
 </table>
 <br>
 {{/if}}
-{{if userEmail }}
-<strong>User's email:</strong>
-<table class="table">
+<table class="text">
     <tr>
-        <td bgcolor=#EAEAEA>
-            {{var userEmail}}
-        </td>
+        <th>
+            Bitte beachten Sie, dass wir bei Auftragserteilung eine Skizze benötigen, falls diese noch nicht vorliegt.
+            <span><br>Hier ist nochmal Ihr Warenkorb aufgeführt:</span>
+        </th>
     </tr>
 </table>
-<br>
-{{/if}}
 <table>
     <tr class="email-intro">
     </tr>
@@ -54,14 +60,20 @@
 <table class="feedback">
     <tr>
         <th>
-            Not satisfied with the given offer?
-            <br>Please, share your feedback with us so we can improve it.</br>
+            <br>Für weiter Fragen stehen wir Ihnen selbstverständlich gerne zur Verfügung.</br>
         </th>
     </tr>
     <tr>
         <td>
             {{var feedback}}
         </td>
+    </tr>
+    <tr>
+        <th>
+            <br>Diesen Warenkorb hat {{var adminUser}} angelegt.
+            <br>Mit freundlichen Grüssen
+            <br>Troas Team
+        </th>
     </tr>
 </table>
 

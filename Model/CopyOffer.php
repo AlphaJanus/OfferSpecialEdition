@@ -8,6 +8,7 @@
 
 namespace Netzexpert\OfferSpecialEdition\Model;
 
+use Magento\Catalog\Model\ProductRepository;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Message\Manager;
@@ -32,7 +33,8 @@ class CopyOffer
     public function __construct(
         CheckoutSession $checkoutSession,
         QuoteRepository $quoteRepository,
-        Manager $manager
+        Manager $manager,
+        ProductRepository $productRepository
     )
     {
         $this->checkoutSession = $checkoutSession;
@@ -46,43 +48,53 @@ class CopyOffer
      */
     public function copy($id)
     {
-         if($id > 0)
-         {
-             try {
-             $originalQuote = $this->quoteRepository->get($id);
-             } catch (NoSuchEntityException $exception) {
-                 $this->messageManager->addError(__($exception->getMessage()));
-                 return false;
-             }
-             $items = $originalQuote->getAllVisibleItems();
-             $quote = $this->checkoutSession->getQuote();
-             $quote->removeAllItems();
+        if($id > 0)
+        {
+            try {
+                $originalQuote = $this->quoteRepository->get($id);
+            } catch (NoSuchEntityException $exception) {
+                $this->messageManager->addError(__($exception->getMessage()));
+                return false;
+            }
+            $items = $originalQuote->getAllVisibleItems();
+            $quote = $this->checkoutSession->getQuote();
+            $quote->removeAllItems();
 
-             /** @var Quote\Item $item */
-             foreach ($items as $item)
-             {
-                 $_product = $item->getProduct();
-                 $options = $_product->getTypeInstance()->getOrderOptions($item->getProduct());
-                 $info = $options['info_buyRequest'];
-                 $request1 = new \Magento\Framework\DataObject();
-                 $request1->setData($info);
-                 try {
-                     $quote->addProduct($_product, $request1);
-                 } catch (LocalizedException $exception) {
-                     $this->messageManager->addError($exception->getMessage());
-                 }
-             }
-             try {
-                 $quote->getShippingAddress()->setCollectShippingRates(true);
-                 $this->quoteRepository->save($quote);
-                 $quote->collectTotals();
-                 $this->checkoutSession->replaceQuote($quote);
-                 return true;
-             } catch (\Exception $e)
-             {
-                 $this->messageManager->addError( __($e->getMessage()) );
-             }
-         }
-         return false;
+            /** @var Quote\Item $item */
+            foreach ($items as $item)
+            {
+                $_product = $item->getProduct()->getData('entity_id');
+                try {
+                    $product = $this->productRepository->getById($_product);
+                } catch ( \Exception $exception) {
+                    $this->messageManager->addError(__($exception->getMessage()));
+                }
+                $options = $product->getTypeInstance()->getOrderOptions($item->getProduct());
+                $info = $options['info_buyRequest'];
+                $roundQty = round($info['qty'], 4);
+                $roundQtyOriginalQuote = round($originalQuote->getItemsQty());
+                if ($roundQtyOriginalQuote != $roundQty) {
+                    $info['qty'] = $item->getQty();
+                }
+                $request1 = new \Magento\Framework\DataObject();
+                $request1->setData($info);
+                try {
+                    $quote->addProduct($product, $request1);
+                } catch (LocalizedException $exception) {
+                    $this->messageManager->addError($exception->getMessage());
+                }
+            }
+            try {
+                $quote->getShippingAddress()->setCollectShippingRates(true);
+                $this->quoteRepository->save($quote);
+                $quote->collectTotals();
+                $this->checkoutSession->replaceQuote($quote);
+                return true;
+            } catch (\Exception $e)
+            {
+                $this->messageManager->addError( __($e->getMessage()) );
+            }
+        }
+        return false;
     }
 }
