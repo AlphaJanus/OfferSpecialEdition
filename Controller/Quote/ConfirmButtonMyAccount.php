@@ -130,7 +130,7 @@ class ConfirmButtonMyAccount extends \Magento\Framework\App\Action\Action
     {
         $currentCustomer = $this->customerSession->getCustomer()->getId();
         $param = $this->request->getParam('offer_id');
-        $quote = $this->offerRepository->get($param);
+        $quote = $this->offerRepository->getByQuoteId($param);
         if ($quote->getData('approved_by_user_id') == null) {
             $quote->setData('approved_by_user_id', $currentCustomer);
             try {
