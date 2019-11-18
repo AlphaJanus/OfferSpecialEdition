@@ -4,7 +4,7 @@
 <form id="send-quote-form-general" class="form_email" method="post" xmlns="http://www.w3.org/1999/html">
     <input type="hidden" name="offer_id" value="<?= $block->getOfferId(); ?>" />
     <input name="email" placeholder="<?= /* @escapeNotVerified */ __('Enter email address') ?>" title="<?php /* @escapeNotVerified */ echo __('Enter email address') ?>"
-           class="input-email" required="true" type="email" data-validate="{required:true, 'validate-email':true, equalTo:'#email'}"/>
+           class="input-email required" value="" data-mage-init='{"validation": {}}' required="true" type="email" data-validate="{required:true}" id="input-email"/>
     <input name="name" placeholder="<?= /* @escapeNotVerified */ __('Enter name and surname') ?>" title="<?= /* @escapeNotVerified */ __('Enter name and surname') ?>"
            value="<?php echo $block->escapeHtml($this->helper('Magento\Contact\Helper\Data')->getPostValue('name') ?: $this->helper('Magento\Contact\Helper\Data')->getUserName()) ?>"
            class="input-name" required="true" type="text" data-validate="{required:true}" />

@@ -57,50 +57,41 @@ class SetQuote
     {
         if($id > 0)
         {
-//            $offerQuote = $this->offerRepository->getById($id)->getQuoteId();
             try {
                 $originalQuote = $this->quoteRepository->get($id);
             } catch (NoSuchEntityException $exception) {
                 $this->messageManager->addError(__($exception->getMessage()));
                 return false;
             }
-            $quoteCustomerEmail = $originalQuote->getCustomer()->getEmail();
-            $sessionCustomerEmail = $this->session->getCustomer()->getEmail();
-            if (
-                $quoteCustomerEmail != $sessionCustomerEmail
-            ) {
-                return false;
-            } else {
-                $items = $originalQuote->getAllVisibleItems();
-                $quote = $this->checkoutSession->getQuote();
-                $quote->removeAllItems();
+            $items = $originalQuote->getAllVisibleItems();
+            $quote = $this->checkoutSession->getQuote();
+            $quote->removeAllItems();
 
-                /** @var Quote\Item $item */
-                foreach ($items as $item)
-                {
-                    $_product = $item->getProduct();
-                    $options = $_product->getTypeInstance()->getOrderOptions($item->getProduct());
-                    $info = $options['info_buyRequest'];
-                    $request1 = new \Magento\Framework\DataObject();
-                    $request1->setData($info);
-                    try {
-                        $quote->addProduct($_product, $request1);
-                    } catch (LocalizedException $exception) {
-                        $this->messageManager->addError($exception->getMessage());
-                    }
-                }
+            /** @var Quote\Item $item */
+            foreach ($items as $item)
+            {
+                $_product = $item->getProduct();
+                $options = $_product->getTypeInstance()->getOrderOptions($item->getProduct());
+                $info = $options['info_buyRequest'];
+                $request1 = new \Magento\Framework\DataObject();
+                $request1->setData($info);
                 try {
-                    $quote->getShippingAddress()->setCollectShippingRates(true);
-                    $this->quoteRepository->save($quote);
-                    $quote->collectTotals();
-                    $this->checkoutSession->replaceQuote($quote);
-                    return true;
-                } catch (\Exception $e)
-                {
-                    $this->messageManager->addError( __($e->getMessage()) );
+                    $quote->addProduct($_product, $request1);
+                } catch (LocalizedException $exception) {
+                    $this->messageManager->addError($exception->getMessage());
                 }
             }
+            try {
+                $quote->getShippingAddress()->setCollectShippingRates(true);
+                $quote->setData('offer_id', $originalQuote->getData('offer_id'));
+                $this->quoteRepository->save($quote);
+                $quote->collectTotals();
+                $this->checkoutSession->replaceQuote($quote);
+                return true;
+            } catch (\Exception $e)
+            {
+                $this->messageManager->addError( __($e->getMessage()) );
+            }
         }
-        return false;
     }
 }

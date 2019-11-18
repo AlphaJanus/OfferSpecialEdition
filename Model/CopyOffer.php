@@ -40,6 +40,7 @@ class CopyOffer
         $this->checkoutSession = $checkoutSession;
         $this->quoteRepository = $quoteRepository;
         $this->messageManager = $manager;
+        $this->productRepository = $productRepository;
     }
 
     /**
