@@ -58,6 +58,7 @@ class SetQuote
         if($id > 0)
         {
             try {
+                $offer = $this->offerRepository->getByQuoteId($id);
                 $originalQuote = $this->quoteRepository->get($id);
             } catch (NoSuchEntityException $exception) {
                 $this->messageManager->addError(__($exception->getMessage()));
@@ -83,7 +84,7 @@ class SetQuote
             }
             try {
                 $quote->getShippingAddress()->setCollectShippingRates(true);
-                $quote->setData('offer_id', $originalQuote->getData('offer_id'));
+                $quote->setData('offer_id', $offer->getData('entity_id'));
                 $this->quoteRepository->save($quote);
                 $quote->collectTotals();
                 $this->checkoutSession->replaceQuote($quote);
